@@ -143,16 +143,33 @@ function App() {
         </AnimatePresence>
       </div>
 
-      <div style={{ position: 'absolute', bottom: '30px', left: 0, right: 0, display: 'flex', justifyContent: 'center', gap: '20px', zIndex: 100 }}>
-        <button className="nav-btn" onClick={() => paginate(-1)} disabled={slideIndex === 0}>
-          <ChevronLeft size={32} />
-        </button>
-        <button className="nav-btn" onClick={() => paginate(1)} disabled={slideIndex === slides.length - 1}>
-          <ChevronRight size={32} />
-        </button>
+      {/* Full screen click areas */}
+      <div 
+        style={{ position: 'absolute', top: 0, left: 0, width: '50vw', height: '100vh', zIndex: 90, cursor: slideIndex > 0 ? 'pointer' : 'default' }} 
+        onClick={() => paginate(-1)} 
+      />
+      <div 
+        style={{ position: 'absolute', top: 0, right: 0, width: '50vw', height: '100vh', zIndex: 90, cursor: slideIndex < slides.length - 1 ? 'pointer' : 'default' }} 
+        onClick={() => paginate(1)} 
+      />
+
+      <div style={{ position: 'absolute', bottom: '40px', left: 0, right: 0, display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '40px', zIndex: 100, pointerEvents: 'none' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', opacity: slideIndex === 0 ? 0.2 : 0.8, transition: 'opacity 0.3s' }}>
+          <span style={{ fontSize: '12px', letterSpacing: '2px', color: '#A0A0AA', marginBottom: '8px', textTransform: 'uppercase' }}>Назад</span>
+          <button className="nav-btn" onClick={() => paginate(-1)} disabled={slideIndex === 0} style={{ pointerEvents: 'auto' }}>
+            <ChevronLeft size={28} color="#fff" strokeWidth={2.5} />
+          </button>
+        </div>
+        
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', opacity: slideIndex === slides.length - 1 ? 0.2 : 1, transition: 'opacity 0.3s' }}>
+          <span style={{ fontSize: '12px', letterSpacing: '2px', color: 'var(--primary)', marginBottom: '8px', textTransform: 'uppercase', animation: 'pulseText 2s infinite' }}>Далі</span>
+          <button className="nav-btn pulse-glow" onClick={() => paginate(1)} disabled={slideIndex === slides.length - 1} style={{ pointerEvents: 'auto' }}>
+            <ChevronRight size={28} color="#fff" strokeWidth={2.5} />
+          </button>
+        </div>
       </div>
 
-      <div className="progress-container" style={{ width: '100%' }}>
+      <div className="progress-container" style={{ width: '100%', top: 0, bottom: 'auto' }}>
         <div className="progress-bar" style={{ width: `${progress}%` }} />
       </div>
     </div>
