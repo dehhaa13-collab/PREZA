@@ -30,7 +30,15 @@ const slides = [
     ]
   },
   { id: 8, type: 'title', title: 'ЩО КОНКРЕТНО', highlight: 'ВИ ОТРИМАЄТЕ?' },
-  { id: 9, type: 'cost-comparison', title: 'СКІЛЬКИ ЦЕ КОШТУЄ,\nЯКЩО РОБИТИ САМОСТІЙНО', items: [
+  { id: 9, type: 'deliverablesGrid', items: [
+      { num: '01', text: 'За вами закріплюється продюсер' }, { num: '02', text: 'Детальний аналіз вашого акаунту' },
+      { num: '03', text: 'Аналаз конкурентів та тем у вашій ніші' }, { num: '04', text: 'Допомога в оформленні профілю' },
+      { num: '05', text: '10 індивідуально підібраних тем та форматів для публікацій' }, { num: '06', text: '10 сценаріїв для публікацій' },
+      { num: '07', text: 'Монтаж ваших 10 відео' }, { num: '08', text: 'Створення красивих обкладинок' },
+      { num: '09', text: 'Запуск рекламних кампаній' }
+    ]
+  },
+  { id: 10, type: 'cost-comparison', title: 'СКІЛЬКИ ЦЕ КОШТУЄ,\nЯКЩО РОБИТИ САМОСТІЙНО', items: [
       { title: 'СУПРОВІД ПРОДЮСЕРА', cost: '150€ (7500+ ГРН)' }, { title: 'СТВОРЕННЯ 10 СЦЕНАРІЇВ', cost: '50€ (2500 ГРН)' },
       { title: 'МОНТАЖ ВІДЕО', cost: '50€ (2500 ГРН)' }, { title: 'ЗРОБИТИ ДИЗАЙН', cost: '50€ (2500 ГРН)' },
       { title: 'ЗАПУСК РЕКЛАМНОЇ КАМПАНІЇ', cost: '100€ (5000 ГРН)' }
@@ -160,6 +168,22 @@ function SlideSection({ slide }) {
             <motion.div key={idx} variants={itemAnim} className="card-glass" style={{ padding: 'clamp(24px, 3vw, 40px)', display: 'flex', flexDirection: 'column' }}>
               <span className="text-gradient-primary title-font clamp-h2" style={{ fontWeight: 900, marginBottom: '12px' }}>{item.num}</span>
               <p className="clamp-p" style={{ color: '#E0E0EA', fontWeight: 500 }}>{item.text}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.div>
+    );
+  }
+
+  // --- DELIVERABLES GRID (what you get) ---
+  if (slide.type === 'deliverablesGrid') {
+    return (
+      <motion.div initial="hidden" whileInView="show" viewport={viewConfig}>
+        <motion.div variants={staggerContainer} className="grid-3-cols">
+          {slide.items.map((item, idx) => (
+            <motion.div key={idx} variants={itemAnim} className="card-glass" style={{ padding: 'clamp(24px, 3vw, 40px)', display: 'flex', flexDirection: 'column' }}>
+              <span className="text-gradient-primary title-font clamp-h2" style={{ fontWeight: 900, marginBottom: '12px' }}>{item.num}</span>
+              <p className="clamp-p" style={{ color: '#E0E0EA', fontWeight: 600 }}>{item.text}</p>
             </motion.div>
           ))}
         </motion.div>
