@@ -129,11 +129,11 @@ function SlideSection({ slide }) {
   if (slide.type === 'hero') {
     return (
       <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', minHeight: '60vh' }}>
-        <motion.h1 variants={titleAnim} className="text-gradient title-font clamp-h1 text-3d" style={{ fontWeight: 900, marginBottom: 'clamp(20px, 4vh, 40px)', textTransform: 'uppercase' }}>
+        <motion.h1 variants={titleAnim} className="text-gradient title-font clamp-h1" style={{ fontWeight: 900, marginBottom: 'clamp(20px, 4vh, 40px)', textTransform: 'uppercase' }}>
           {slide.title}
         </motion.h1>
         <motion.div variants={itemAnim} className="pill-primary">
-          <p className="title-font clamp-sub text-3d" style={{ fontWeight: 800, color: '#fff', margin: 0 }}>
+          <p className="title-font clamp-sub text-readable" style={{ fontWeight: 800, color: '#fff', margin: 0 }}>
             {slide.subtitle}
           </p>
         </motion.div>
@@ -165,7 +165,7 @@ function SlideSection({ slide }) {
         <motion.div variants={staggerContainer} className="grid-5-cols">
           {slide.items.map((item, idx) => (
             <motion.div key={idx} variants={itemAnim} className="card-glass" style={{ padding: 'clamp(24px, 3vw, 40px)', display: 'flex', flexDirection: 'column' }}>
-              <span className="text-gradient-primary title-font clamp-h2 text-readable" style={{ fontWeight: 900, marginBottom: '12px' }}>{item.num}</span>
+              <span className="text-gradient-primary title-font clamp-h2" style={{ fontWeight: 900, marginBottom: '12px' }}>{item.num}</span>
               <p className="clamp-p text-readable" style={{ color: '#F0F0FA', fontWeight: 500 }}>{item.text}</p>
             </motion.div>
           ))}
@@ -223,7 +223,7 @@ function SlideSection({ slide }) {
         <motion.div variants={staggerContainer} className="grid-3-cols">
           {slide.items.map((item, idx) => (
             <motion.div key={idx} variants={itemAnim} className="card-glass" style={{ padding: 'clamp(24px, 3vw, 40px)', display: 'flex', flexDirection: 'column' }}>
-              <span className="text-gradient-primary title-font clamp-h2 text-readable" style={{ fontWeight: 900, marginBottom: '12px' }}>{item.num}</span>
+              <span className="text-gradient-primary title-font clamp-h2" style={{ fontWeight: 900, marginBottom: '12px' }}>{item.num}</span>
               <p className="clamp-p text-readable" style={{ color: '#F0F0FA', fontWeight: 600 }}>{item.text}</p>
             </motion.div>
           ))}
@@ -242,7 +242,7 @@ function SlideSection({ slide }) {
         <motion.div variants={staggerContainer} style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(20px, 3vw, 32px)' }}>
           {slide.items.map((item, idx) => (
             <motion.div key={idx} variants={itemAnim} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '16px', gap: '12px', flexWrap: 'wrap' }}>
-              <span className="text-gradient-primary title-font clamp-sub text-readable" style={{ fontWeight: 800 }}>{item.title}</span>
+              <span className="text-gradient-primary title-font clamp-sub" style={{ fontWeight: 800 }}>{item.title}</span>
               <span style={{ flex: 1, minWidth: '40px', borderTop: '2px dotted rgba(255,255,255,0.15)', filter: 'drop-shadow(0 2px 4px #000)' }} />
               <span className="clamp-sub text-readable" style={{ color: '#fff', fontWeight: 600, fontFamily: "'Inter', monospace" }}>{item.cost}</span>
             </motion.div>
@@ -280,9 +280,9 @@ function SlideSection({ slide }) {
   if (slide.type === 'price') {
     return (
       <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', width: '100%', gap: 'clamp(40px, 6vw, 80px)' }}>
-        <motion.h2 variants={titleAnim} className="text-gradient title-font clamp-h1 text-readable" style={{ fontWeight: 900, textAlign: 'center' }}>{slide.label}</motion.h2>
+        <motion.h2 variants={titleAnim} className="text-gradient title-font clamp-h1" style={{ fontWeight: 900, textAlign: 'center' }}>{slide.label}</motion.h2>
         <motion.div variants={itemAnim} className="price-card" style={{ background: 'rgba(20, 20, 25, 0.85)', border: '1px solid rgba(255,255,255,0.12)' }}>
-          <div className="clamp-sub title-font text-3d" style={{ background: 'linear-gradient(90deg, var(--primary), #D43F00)', padding: 'clamp(18px, 2.5vw, 30px)', textAlign: 'center', fontWeight: 900, letterSpacing: '0.1em', textTransform: 'uppercase' }}>{slide.package}</div>
+          <div className="clamp-sub title-font text-readable" style={{ background: 'linear-gradient(90deg, var(--primary), #D43F00)', padding: 'clamp(18px, 2.5vw, 30px)', textAlign: 'center', fontWeight: 900, letterSpacing: '0.1em', textTransform: 'uppercase' }}>{slide.package}</div>
           <div className="title-font clamp-h1 text-3d" style={{ padding: 'clamp(50px, 8vw, 100px) clamp(20px, 4vw, 40px)', textAlign: 'center', fontWeight: 900, color: '#fff' }}>{slide.price}</div>
         </motion.div>
       </motion.div>
@@ -294,7 +294,7 @@ function SlideSection({ slide }) {
     return (
       <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', width: '100%', gap: 'clamp(40px, 6vw, 80px)' }}>
         <motion.div variants={titleAnim} style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center' }}>
-          <h2 className="title-font text-gradient-primary clamp-h1 text-readable" style={{ fontWeight: 900, whiteSpace: 'pre-line', marginBottom: 'clamp(16px, 2vw, 30px)' }}>{slide.label}</h2>
+          <h2 className="title-font text-gradient-primary clamp-h1" style={{ fontWeight: 900, whiteSpace: 'pre-line', marginBottom: 'clamp(16px, 2vw, 30px)' }}>{slide.label}</h2>
           <h3 className="clamp-sub text-readable" style={{ fontWeight: 600, color: '#fff', background: 'rgba(255,255,255,0.12)', padding: '12px 32px', borderRadius: '100px' }}>{slide.subLabel}</h3>
         </motion.div>
         
@@ -319,7 +319,7 @@ function SlideSection({ slide }) {
           <div className="clamp-sub title-font text-3d" style={{ position: 'absolute', top: '-22px', left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(90deg, var(--primary), #FF8340)', padding: '14px 48px', borderRadius: '100px', fontWeight: 900, whiteSpace: 'nowrap' }}>БОНУСИ</div>
           {slide.items.map((item, idx) => (
             <motion.div key={idx} variants={itemAnim} style={{ flex: '1 1 250px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '16px' }}>
-              <div className="title-font text-gradient-primary clamp-h1 text-readable" style={{ fontWeight: 900, opacity: 0.3 }}>{item.num}</div>
+              <div className="title-font text-gradient-primary clamp-h1" style={{ fontWeight: 900, opacity: 0.3 }}>{item.num}</div>
               <div className="clamp-sub text-readable" style={{ fontWeight: 600, color: '#FFF' }}>{item.text}</div>
             </motion.div>
           ))}
@@ -337,7 +337,7 @@ function SlideSection({ slide }) {
           <h2 className="title-font clamp-h2-large text-3d" style={{ fontWeight: 900, margin: 0, color: '#fff', textTransform: 'uppercase' }}>{slide.highlight}</h2>
         </motion.div>
         <motion.div variants={itemAnim} style={{ background: 'rgba(15,15,15,0.9)', border: '1px solid rgba(255,90,0,0.25)', padding: 'clamp(40px, 5vw, 60px) clamp(30px, 6vw, 100px)', borderRadius: '32px', boxShadow: '0 30px 80px rgba(0,0,0,0.7), inset 0 0 30px rgba(255,90,0,0.08)' }}>
-          <h3 className="text-gradient-primary title-font clamp-h2 text-readable" style={{ fontWeight: 900, whiteSpace: 'pre-line', margin: 0 }}>{slide.boxText}</h3>
+          <h3 className="text-gradient-primary title-font clamp-h2" style={{ fontWeight: 900, whiteSpace: 'pre-line', margin: 0 }}>{slide.boxText}</h3>
         </motion.div>
         <motion.div variants={itemAnim} className="clamp-sub text-readable" style={{ marginTop: 'clamp(30px, 5vw, 60px)', fontWeight: 700, letterSpacing: '0.08em', color: '#999' }}>
           {slide.footerText}
