@@ -104,8 +104,9 @@ function App() {
             style={{ 
               minHeight: slide.type === 'hero' ? '100vh' : 'auto',
               display: 'flex', alignItems: 'center', justifyContent: 'center', 
-              padding: slide.type === 'hero' ? '0 5%' : '80px 5%',
-              position: 'relative'
+              padding: slide.type === 'hero' ? '0 clamp(16px, 5vw, 5%)' : 'clamp(50px, 8vh, 100px) clamp(16px, 5vw, 5%)',
+              position: 'relative',
+              boxSizing: 'border-box'
             }}
           >
             <div style={{ width: '100%', maxWidth: '1300px', margin: '0 auto' }}>
