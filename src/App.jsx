@@ -295,11 +295,25 @@ function SlideSection({ slide }) {
   // --- PRICE ---
   if (slide.type === 'price') {
     return (
-      <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', width: '100%', gap: 'clamp(40px, 6vw, 80px)' }}>
-        <motion.h2 variants={titleAnim} className="text-gradient title-font clamp-h1" style={{ fontWeight: 900, textAlign: 'center' }}>{slide.label}</motion.h2>
-        <motion.div variants={itemAnim} className="price-card" style={{ background: 'rgba(20, 20, 25, 0.85)', border: '1px solid rgba(255,255,255,0.12)' }}>
-          <div className="clamp-sub title-font text-readable" style={{ background: 'linear-gradient(90deg, var(--primary), #D43F00)', padding: 'clamp(18px, 2.5vw, 30px)', textAlign: 'center', fontWeight: 900, letterSpacing: '0.1em', textTransform: 'uppercase' }}>{slide.package}</div>
-          <div className="title-font clamp-h1 text-3d" style={{ padding: 'clamp(50px, 8vw, 100px) clamp(20px, 4vw, 40px)', textAlign: 'center', fontWeight: 900, color: '#fff' }}>{slide.price}</div>
+      <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+        <motion.div variants={itemAnim} className="price-card" style={{ 
+          background: 'rgba(15, 15, 18, 0.7)', 
+          backdropFilter: 'blur(20px)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          boxShadow: '0 40px 100px rgba(0,0,0,0.8), inset 0 2px 20px rgba(255,255,255,0.03)',
+          display: 'flex', flexDirection: 'column',
+          position: 'relative', overflow: 'hidden'
+        }}>
+          <div style={{ position: 'absolute', top: 0, left: '15%', right: '15%', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)' }} />
+          
+          <div className="title-font" style={{ width: '100%', padding: 'clamp(20px, 3vw, 24px)', textAlign: 'center', fontWeight: 800, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#888', fontSize: '13px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+            Пакет {slide.package}
+          </div>
+          
+          <div style={{ padding: 'clamp(50px, 8vw, 90px) clamp(30px, 5vw, 60px)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <span className="title-font clamp-h1" style={{ fontWeight: 900, color: '#fff', textShadow: '0 4px 24px rgba(255,255,255,0.25)', lineHeight: 1 }}>{slide.price}</span>
+            <span className="clamp-p" style={{ color: '#A0A0AA', marginTop: '16px', fontWeight: 500, letterSpacing: '0.05em' }}>за місяць роботи команди</span>
+          </div>
         </motion.div>
       </motion.div>
     );
