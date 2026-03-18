@@ -1,4 +1,4 @@
-import React, { useRef, lazy, Suspense } from 'react';
+import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { TrendingDown, CheckCircle2, ChevronDown } from 'lucide-react';
 import './index.css';
@@ -100,13 +100,14 @@ function App() {
         {slides.map((slide) => (
           <section 
             key={slide.id}
-            className="section-padding" 
+            className={slide.type === 'hero' ? '' : 'section-padding'}
             style={{ 
               minHeight: slide.type === 'hero' ? '100vh' : 'auto',
               display: 'flex', alignItems: 'center', justifyContent: 'center', 
               padding: slide.type === 'hero' ? '0 clamp(16px, 5vw, 5%)' : 'clamp(50px, 8vh, 100px) clamp(16px, 5vw, 5%)',
               position: 'relative',
-              boxSizing: 'border-box'
+              boxSizing: 'border-box',
+              overflowWrap: 'break-word', wordBreak: 'break-word'
             }}
           >
             <div style={{ width: '100%', maxWidth: '1300px', margin: '0 auto' }}>
@@ -249,8 +250,8 @@ function SlideSection({ slide }) {
         </motion.h2>
         <motion.div variants={staggerContainer} style={{ display: 'flex', flexDirection: 'column', gap: 'clamp(20px, 3vw, 32px)' }}>
           {slide.items.map((item, idx) => (
-            <motion.div key={idx} variants={itemAnim} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '16px', gap: '12px', flexWrap: 'wrap' }}>
-              <span className="text-gradient-primary title-font clamp-sub" style={{ fontWeight: 800 }}>{item.title}</span>
+            <motion.div key={idx} variants={itemAnim} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '16px', gap: '8px' }}>
+              <span className="text-gradient-primary title-font clamp-sub" style={{ fontWeight: 800, flexShrink: 1, minWidth: 0 }}>{item.title}</span>
               <span style={{ flex: 1, minWidth: '40px', borderTop: '2px dotted rgba(255,255,255,0.15)', filter: 'drop-shadow(0 2px 4px #000)' }} />
               <span className="clamp-sub text-readable" style={{ color: '#fff', fontWeight: 600, fontFamily: "'Inter', monospace" }}>{item.cost}</span>
             </motion.div>
@@ -374,7 +375,7 @@ function SlideSection({ slide }) {
         <motion.div variants={staggerContainer} className="card-glass" style={{ padding: 'clamp(50px, 6vw, 80px) clamp(24px, 4vw, 50px)', display: 'flex', flexWrap: 'wrap', gap: 'clamp(30px, 4vw, 60px)', position: 'relative', width: '100%', borderRadius: '32px' }}>
           <div className="clamp-sub title-font text-3d" style={{ position: 'absolute', top: '-22px', left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(90deg, var(--primary), #FF8340)', padding: '14px 48px', borderRadius: '100px', fontWeight: 900, whiteSpace: 'nowrap' }}>БОНУСИ</div>
           {slide.items.map((item, idx) => (
-            <motion.div key={idx} variants={itemAnim} style={{ flex: '1 1 250px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '16px' }}>
+            <motion.div key={idx} variants={itemAnim} style={{ flex: '1 1 200px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '16px' }}>
               <div className="title-font text-gradient-primary clamp-h1" style={{ fontWeight: 900, opacity: 0.3 }}>{item.num}</div>
               <div className="clamp-sub text-readable" style={{ fontWeight: 600, color: '#FFF' }}>{item.text}</div>
             </motion.div>
