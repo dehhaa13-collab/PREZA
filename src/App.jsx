@@ -4,7 +4,7 @@ import { TrendingDown, CheckCircle2, ChevronDown } from 'lucide-react';
 import './index.css';
 
 const slides = [
-  { id: 1, type: 'hero', title: 'INST НА МІЛЬЙОН', subtitle: 'Твій instagram приваблює клієнтів' },
+  { id: 1, type: 'hero', title: 'INST НА МІЛЬЙОН', subtitle: 'Команда з 5 спеціалістів допомагає вести твій Instagram — від сценарію до реклами' },
   { id: 2, type: 'title', title: 'ЯКІ ПРОБЛЕМИ ВИРІШУЄ', highlight: 'INST НА МІЛЬЙОН' },
   { id: 3, type: 'problemsGrid', items: [
       { num: '01', text: 'Хаотичне ведення блогу' }, { num: '02', text: 'Пошук актуальних тем' },
