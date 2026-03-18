@@ -272,12 +272,21 @@ function SlideSection({ slide }) {
         <motion.h2 variants={titleAnim} className="title-font clamp-h2-large text-3d" style={{ fontWeight: 900, marginBottom: 'clamp(40px, 6vw, 80px)', textTransform: 'uppercase', textAlign: 'center' }}>
           {slide.title}
         </motion.h2>
-        <motion.div variants={staggerContainer} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'clamp(12px, 2vw, 24px)' }}>
-          {slide.roles.map((role, idx) => (
-            <motion.div key={idx} variants={itemAnim} className="card-glass title-font clamp-sub text-readable" style={{ padding: 'clamp(18px, 2vw, 30px) clamp(30px, 4vw, 60px)', borderRadius: '100px', fontWeight: 900, color: '#fff' }}>
-              {role}
-            </motion.div>
-          ))}
+        <motion.div variants={staggerContainer} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 'clamp(12px, 2vw, 24px)' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'clamp(12px, 2vw, 24px)' }}>
+            {slide.roles.slice(0, 3).map((role, idx) => (
+              <motion.div key={`r1-${idx}`} variants={itemAnim} className="card-glass title-font clamp-sub text-readable" style={{ padding: 'clamp(18px, 2vw, 30px) clamp(30px, 4vw, 60px)', borderRadius: '100px', fontWeight: 900, color: '#fff' }}>
+                {role}
+              </motion.div>
+            ))}
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 'clamp(12px, 2vw, 24px)' }}>
+            {slide.roles.slice(3, 5).map((role, idx) => (
+              <motion.div key={`r2-${idx}`} variants={itemAnim} className="card-glass title-font clamp-sub text-readable" style={{ padding: 'clamp(18px, 2vw, 30px) clamp(30px, 4vw, 60px)', borderRadius: '100px', fontWeight: 900, color: '#fff' }}>
+                {role}
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </motion.div>
     );
