@@ -31,11 +31,15 @@ const slides = [
   },
   { id: 8, type: 'title', title: 'ЩО КОНКРЕТНО', highlight: 'ВИ ОТРИМАЄТЕ?' },
   { id: 9, type: 'deliverablesGrid', items: [
-      { num: '01', text: 'Персональний продюсер який веде тебе за руку' }, { num: '02', text: 'Детальний аналіз твого акаунту' },
-      { num: '03', text: 'Аналіз конкурентів та тем у твоїй ніші' }, { num: '04', text: 'Допомога в оформленні профілю' },
-      { num: '05', text: '10 тем та форматів під твою нішу' }, { num: '06', text: '10 готових сценаріїв — просто бери і знімай' },
-      { num: '07', text: 'Монтаж спільно розроблених відео' }, { num: '08', text: 'Красиві обкладинки для кожного відео' },
-      { num: '09', text: 'Запуск реклами на нових клієнтів' }
+      { num: '01', title: 'ЗНАЙОМСТВО ТА АУДИТ', text: 'Закріплюємо за тобою персонального продюсера. Робимо глибокий розбір профілю та аналіз конкурентів.' },
+      { num: '02', title: 'ПАКУВАННЯ ПРОФІЛЮ', text: 'Експрес-"ремонт" сторінки. Оформлюємо шапку, хайлайтси та стрічку так, щоб одразу викликати довіру клієнтів.' },
+      { num: '03', title: 'ВІДБІР ТЕМ', text: 'Ніяких танців під тренди. Підбираємо 10 сильних експертних тем, які відповідають на болі саме твоєї аудиторії.' },
+      { num: '04', title: 'НАПИСАННЯ СЦЕНАРІЇВ', text: 'Тобі не треба нічого вигадувати. Наш сценарист прописує 10 готових текстів з хуками та правильними закликами.' },
+      { num: '05', title: 'ПРОЦЕС ЗЙОМКИ', text: 'Ти виділяєш лише пару годин свого часу в тиждень і записуєш відео за нашими чіткими інструкціями без стресу.' },
+      { num: '06', title: 'МОНТАЖ ТА ДИЗАЙН', text: 'Робимо динамічний монтаж усіх 10 відзнятих відео, накладаємо субтитри та розробляємо соковиті обкладинки.' },
+      { num: '07', title: 'ПЛАН ПУБЛІКАЦІЙ', text: 'Ти отримуєш готові відео та графік виходу. Твоя єдина задача — зайти і натиснути кнопку "Опублікувати".' },
+      { num: '08', title: 'ЗАПУСК РЕКЛАМИ', text: 'Наш таргетолог тестує та запускає рекламу на найкращі ролики, щоб отримувати постійний потік заявок.' },
+      { num: '09', title: 'СУПРОВІД ТА АНАЛІЗ', text: 'Ми 24/7 на зв\'язку у чаті. Аналізуємо результати за місяць, щоб далі масштабувати твій дохід.' }
     ]
   },
   { id: 10, type: 'cost-comparison', title: 'СКІЛЬКИ ЦЕ КОШТУЄ,\nЯКЩО РОБИТИ САМОСТІЙНО', items: [
@@ -223,8 +227,11 @@ function SlideSection({ slide }) {
         <motion.div variants={staggerContainer} className="grid-3-cols">
           {slide.items.map((item, idx) => (
             <motion.div key={idx} variants={itemAnim} className="card-glass" style={{ padding: 'clamp(24px, 3vw, 40px)', display: 'flex', flexDirection: 'column' }}>
-              <span className="text-gradient-primary title-font clamp-h2" style={{ fontWeight: 900, marginBottom: '12px' }}>{item.num}</span>
-              <p className="clamp-p text-readable" style={{ color: '#F0F0FA', fontWeight: 600 }}>{item.text}</p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px' }}>
+                <span className="text-gradient-primary title-font clamp-h2" style={{ fontWeight: 900 }}>{item.num}</span>
+                <h3 className="title-font clamp-sub" style={{ fontWeight: 800, color: '#fff', margin: 0, textTransform: 'uppercase', lineHeight: 1.2 }}>{item.title}</h3>
+              </div>
+              <p className="clamp-p" style={{ color: '#bbb', fontWeight: 500, margin: 0, lineHeight: 1.6 }}>{item.text}</p>
             </motion.div>
           ))}
         </motion.div>
