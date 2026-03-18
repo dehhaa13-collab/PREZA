@@ -325,12 +325,31 @@ function SlideSection({ slide }) {
       <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', width: '100%', gap: 'clamp(40px, 6vw, 80px)' }}>
         <motion.div variants={titleAnim} style={{ display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center' }}>
           <h2 className="title-font text-gradient-primary clamp-h1" style={{ fontWeight: 900, whiteSpace: 'pre-line', marginBottom: 'clamp(16px, 2vw, 30px)' }}>{slide.label}</h2>
-          <h3 className="clamp-sub text-readable" style={{ fontWeight: 600, color: '#fff', background: 'rgba(255,255,255,0.12)', padding: '12px 32px', borderRadius: '100px' }}>{slide.subLabel}</h3>
+          <h3 className="clamp-sub text-readable" style={{ fontWeight: 800, color: '#FFD2BC', background: 'rgba(255, 90, 0, 0.15)', border: '1px solid rgba(255, 90, 0, 0.4)', padding: '12px 32px', borderRadius: '100px', boxShadow: '0 0 20px rgba(255, 90, 0, 0.2)' }}>
+            <motion.span animate={{ opacity: [1, 0.5, 1] }} transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }} style={{ display: 'inline-block', width: '8px', height: '8px', background: '#FF5A00', borderRadius: '50%', marginRight: '10px', boxShadow: '0 0 10px #FF5A00' }} />
+            {slide.subLabel}
+          </h3>
         </motion.div>
         
-        <motion.div variants={itemAnim} className="price-card" style={{ background: 'linear-gradient(135deg, #FFFFFF, #F0F0F0)', boxShadow: '0 30px 80px rgba(255,90,0,0.5)' }}>
-          <div className="clamp-sub title-font" style={{ textShadow: '0 2px 4px rgba(0,0,0,0.4)', background: 'linear-gradient(90deg, var(--primary), #FF2A00)', padding: 'clamp(18px, 2.5vw, 30px)', textAlign: 'center', fontWeight: 900, color: '#fff', letterSpacing: '0.1em' }}>{slide.package}</div>
-          <div className="title-font clamp-h1" style={{ textShadow: '0 4px 16px rgba(200,0,0,0.2)', padding: 'clamp(50px, 8vw, 100px) clamp(20px, 4vw, 40px)', textAlign: 'center', fontWeight: 900, color: '#D40000' }}>{slide.price}</div>
+        <motion.div variants={itemAnim} className="price-card" style={{ 
+          background: 'linear-gradient(160deg, rgba(25, 10, 5, 0.9), rgba(5, 5, 5, 0.95))', 
+          backdropFilter: 'blur(30px)',
+          border: '1px solid rgba(255, 90, 0, 0.4)',
+          boxShadow: '0 40px 120px rgba(255, 90, 0, 0.4), inset 0 0 60px rgba(255, 90, 0, 0.15)',
+          display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden'
+        }}>
+          {/* Top glowing stripe */}
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: 'linear-gradient(90deg, #FFB088, #FF5A00, #FFB088)', boxShadow: '0 0 20px #FF5A00' }} />
+          
+          <div className="title-font" style={{ width: '100%', padding: 'clamp(20px, 3vw, 24px)', textAlign: 'center', fontWeight: 900, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#FFB088', fontSize: '13px', borderBottom: '1px solid rgba(255,90,0,0.2)' }}>
+            Пакет {slide.package}
+          </div>
+          
+          <div style={{ padding: 'clamp(40px, 6vw, 70px) clamp(30px, 5vw, 60px)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <span className="title-font clamp-h2" style={{ color: 'rgba(255,255,255,0.3)', textDecoration: 'line-through', fontWeight: 700, marginBottom: '4px' }}>250€</span>
+            <span className="title-font text-gradient-primary clamp-h1" style={{ fontWeight: 900, lineHeight: 1, fontSize: 'clamp(4rem, 10vw, 6.5rem)', textShadow: '0 0 60px rgba(255, 90, 0, 0.8)' }}>{slide.price}</span>
+            <span className="clamp-p" style={{ color: '#FFD2BC', marginTop: '16px', fontWeight: 600, letterSpacing: '0.05em' }}>за місяць роботи команди</span>
+          </div>
         </motion.div>
       </motion.div>
     );
