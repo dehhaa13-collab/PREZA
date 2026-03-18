@@ -349,8 +349,8 @@ function SlideSection({ slide }) {
             <span className="title-font clamp-h2" style={{ color: 'rgba(255,255,255,0.3)', textDecoration: 'line-through', fontWeight: 700, marginBottom: '4px' }}>250€</span>
             <span className="title-font" style={{ 
               fontWeight: 900, lineHeight: 1, fontSize: 'clamp(4rem, 10vw, 6.5rem)', 
-              color: '#FFF5F0', 
-              textShadow: '0 2px 10px rgba(255, 90, 0, 0.9), 0 0 40px rgba(255, 90, 0, 0.6), 0 0 80px rgba(255, 20, 0, 0.4)' 
+              color: '#FFFBF8', 
+              textShadow: '0 2px 8px rgba(255, 90, 0, 0.5), 0 0 24px rgba(255, 90, 0, 0.3), 0 0 50px rgba(255, 30, 0, 0.15)' 
             }}>
               {slide.price}
             </span>
