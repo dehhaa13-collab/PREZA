@@ -49,11 +49,11 @@ const slides = [
 
 const staggerContainer = {
   hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.1 } } // faster stagger looks cleaner
+  show: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } }
 };
 
 const itemAnim = {
-  hidden: { y: 30, opacity: 0, scale: 0.98 }, // subtle scale avoids jitter
+  hidden: { y: 30, opacity: 0, scale: 0.98 },
   show: { y: 0, opacity: 1, scale: 1, transition: { type: 'spring', stiffness: 200, damping: 20 } }
 };
 
@@ -66,13 +66,12 @@ function App() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: containerRef });
 
-  // Use pixel-based transforms as they are far less intensive on layout engines than 'vw' for raw continuous mapping
   const orb1Y = useTransform(scrollYProgress, [0, 1], [0, 800]);
   const orb1Color = useTransform(scrollYProgress, [0, 0.4, 0.8, 1], ["#FF5A00", "#FF1100", "#1E90FF", "#FF5A00"]);
   const orb2Y = useTransform(scrollYProgress, [0, 1], [0, -600]);
 
   return (
-    <div ref={containerRef} style={{ width: '100%', minHeight: '100vh', position: 'relative' }}>
+    <div ref={containerRef} style={{ width: '100%', position: 'relative' }}>
       <motion.div style={{ position: 'fixed', top: 0, left: 0, right: 0, height: '4px', background: 'linear-gradient(90deg, #FF5B00, #FFB088)', transformOrigin: '0%', scaleX: scrollYProgress, zIndex: 1000, boxShadow: '0 0 15px rgba(255, 90, 0, 0.8)' }} />
       
       <div className="fixed-bg">
@@ -86,20 +85,21 @@ function App() {
         />
       </div>
 
-      <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', paddingBottom: '10vh' }}>
+      <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column' }}>
         {slides.map((slide) => (
           <section 
             key={slide.id} 
             style={{ 
-              minHeight: slide.type === 'hero' ? '100vh' : 'auto',
+              minHeight: '100vh',
               display: 'flex', alignItems: 'center', justifyContent: 'center', 
-              padding: '80px 5%',
-              scrollSnapAlign: 'none' // explicit removal to ensure no jitter
+              padding: '10vh 5%',
+              position: 'relative'
             }}
           >
-            <div className={`content-wrapper ${slide.type !== 'hero' ? 'glass-panel' : ''}`} style={{ width: '100%', maxWidth: '1200px', padding: slide.type !== 'hero' ? '60px' : '0', position: 'relative' }}>
+            <div style={{ width: '100%', maxWidth: '1400px', position: 'relative', margin: '0 auto' }}>
                <SlideSection slide={slide} isHero={slide.type === 'hero'} />
             </div>
+            
             {slide.type === 'hero' && (
               <motion.div 
                 initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1, duration: 1, repeat: Infinity, repeatType: 'reverse' }}
@@ -116,18 +116,17 @@ function App() {
   );
 }
 
-// Ensure once: true is used everywhere to prevent re-trigger jank when scrolling back up
 const viewConfig = { once: true, margin: "-50px" };
 
 function SlideSection({ slide, isHero }) {
   if (isHero) {
     return (
       <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-        <motion.h1 variants={titleAnim} className="text-gradient title-font" style={{ fontSize: '100px', fontWeight: 900, marginBottom: '30px', lineHeight: 1.1, textTransform: 'uppercase' }}>
+        <motion.h1 variants={titleAnim} className="text-gradient title-font clamp-h1" style={{ fontWeight: 900, marginBottom: '30px', textTransform: 'uppercase' }}>
           {slide.title}
         </motion.h1>
-        <motion.div variants={itemAnim} style={{ background: 'linear-gradient(135deg, var(--primary), #D43F00)', padding: '24px 64px', borderRadius: '100px', boxShadow: '0 20px 50px rgba(255, 90, 0, 0.4)' }}>
-          <p className="title-font" style={{ fontSize: '32px', fontWeight: 800, color: '#fff', margin: 0, letterSpacing: '0.02em' }}>
+        <motion.div variants={itemAnim} className="pill-primary">
+          <p className="title-font clamp-sub" style={{ fontWeight: 800, color: '#fff', margin: 0, letterSpacing: '0.02em' }}>
             {slide.subtitle}
           </p>
         </motion.div>
@@ -139,11 +138,11 @@ function SlideSection({ slide, isHero }) {
     const isDanger = slide.type === 'title-danger';
     return (
       <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-        <motion.h2 variants={titleAnim} className="title-font" style={{ fontSize: '48px', fontWeight: 800, marginBottom: '30px', textTransform: 'uppercase', color: '#fff' }}>
+        <motion.h2 variants={titleAnim} className="title-font clamp-h2" style={{ fontWeight: 800, marginBottom: '40px', textTransform: 'uppercase', color: '#fff' }}>
           {slide.title}
         </motion.h2>
-        <motion.div variants={itemAnim} style={{ background: isDanger ? 'linear-gradient(135deg, #FF3C3C, #A00000)' : 'linear-gradient(135deg, var(--primary), #D43F00)', padding: '24px 72px', borderRadius: '100px', boxShadow: isDanger ? '0 20px 50px rgba(255, 60, 60, 0.4)' : '0 20px 50px var(--primary-glow)' }}>
-          <h2 className="title-font" style={{ fontSize: '64px', fontWeight: 900, margin: 0, color: '#fff', textTransform: 'uppercase', lineHeight: 1.1 }}>
+        <motion.div variants={itemAnim} className={isDanger ? "pill-danger" : "pill-primary"}>
+          <h2 className="title-font clamp-h2-large" style={{ fontWeight: 900, margin: 0, color: '#fff', textTransform: 'uppercase' }}>
             {slide.highlight}
           </h2>
         </motion.div>
@@ -154,11 +153,11 @@ function SlideSection({ slide, isHero }) {
   if (slide.type === 'problemsGrid') {
     return (
       <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexDirection: 'column' }}>
-        <motion.div variants={staggerContainer} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
+        <motion.div variants={staggerContainer} className="grid-5-cols">
           {slide.items.map((item, idx) => (
-            <motion.div key={idx} variants={itemAnim} className="card-glass" style={{ padding: '30px 24px', display: 'flex', flexDirection: 'column', height: '100%' }}>
-              <span className="text-gradient-primary title-font" style={{ fontSize: '42px', fontWeight: 900, marginBottom: '16px', lineHeight: 1 }}>{item.num}</span>
-              <p style={{ color: '#E0E0EA', fontSize: '18px', lineHeight: 1.5, fontWeight: 500 }}>{item.text}</p>
+            <motion.div key={idx} variants={itemAnim} className="card-glass" style={{ padding: '40px 30px', display: 'flex', flexDirection: 'column', height: '100%' }}>
+              <span className="text-gradient-primary title-font clamp-h2" style={{ fontWeight: 900, marginBottom: '16px' }}>{item.num}</span>
+              <p className="clamp-p" style={{ color: '#E0E0EA', fontWeight: 500 }}>{item.text}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -169,13 +168,13 @@ function SlideSection({ slide, isHero }) {
   if (slide.type === 'consequences') {
     return (
       <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <motion.div variants={staggerContainer} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '30px' }}>
+        <motion.div variants={staggerContainer} className="grid-2-cols">
           {slide.items.map((item, idx) => (
-            <motion.div key={idx} variants={itemAnim} className="card-glass" style={{ padding: '30px', display: 'flex', alignItems: 'center', gap: '24px', borderLeft: '4px solid #FF3C3C' }}>
-              <div style={{ background: '#fff', borderRadius: '16px', width: '60px', height: '60px', minWidth: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <motion.div key={idx} variants={itemAnim} className="card-glass" style={{ padding: '40px', display: 'flex', alignItems: 'center', gap: '30px', borderLeft: '4px solid #FF3C3C' }}>
+              <div style={{ background: '#fff', borderRadius: '16px', minWidth: '60px', height: '60px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <TrendingDown color="#ff3c3c" size={32} strokeWidth={3} />
               </div>
-              <p style={{ color: '#F8F9FA', fontSize: '22px', lineHeight: 1.4, fontWeight: 600, margin: 0 }}>{item.text}</p>
+              <p className="clamp-sub" style={{ color: '#F8F9FA', fontWeight: 600, margin: 0, lineHeight: 1.4 }}>{item.text}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -186,11 +185,11 @@ function SlideSection({ slide, isHero }) {
   if (slide.type === 'objections') {
     return (
       <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-        <motion.div variants={staggerContainer} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
+        <motion.div variants={staggerContainer} className="grid-4-cols">
           {slide.items.map((item, idx) => (
-            <motion.div key={idx} variants={itemAnim} style={{ background: item.invert ? 'linear-gradient(135deg, var(--primary), #D43F00)' : 'linear-gradient(135deg, #FFFFFF, #E0E0E0)', borderRadius: '24px', padding: '40px 30px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', height: '100%', minHeight: '220px', boxShadow: item.invert ? '0 20px 40px rgba(255, 90, 0, 0.3)' : '0 20px 40px rgba(0, 0, 0, 0.4)' }}>
-              <CheckCircle2 color={item.invert ? '#fff' : 'var(--primary)'} size={48} strokeWidth={2.5} style={{ marginBottom: '20px' }} />
-              <p className="title-font" style={{ color: item.invert ? '#fff' : '#030303', fontSize: '20px', lineHeight: 1.3, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.02em' }}>
+            <motion.div key={idx} variants={itemAnim} style={{ background: item.invert ? 'linear-gradient(135deg, var(--primary), #D43F00)' : 'linear-gradient(135deg, #FFFFFF, #E0E0E0)', padding: '50px 30px', borderRadius: '24px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', minHeight: '260px', boxShadow: item.invert ? '0 20px 40px rgba(255, 90, 0, 0.3)' : '0 20px 40px rgba(0, 0, 0, 0.4)' }}>
+              <CheckCircle2 color={item.invert ? '#fff' : 'var(--primary)'} size={64} strokeWidth={2.5} style={{ marginBottom: '30px' }} />
+              <p className="title-font clamp-sub" style={{ color: item.invert ? '#fff' : '#030303', fontWeight: 800, textTransform: 'uppercase', margin: 0, lineHeight: 1.3 }}>
                 {item.text}
               </p>
             </motion.div>
@@ -202,24 +201,24 @@ function SlideSection({ slide, isHero }) {
 
   if (slide.type === 'cost-comparison') {
     return (
-      <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
-        <motion.h2 variants={titleAnim} className="title-font" style={{ fontSize: '48px', fontWeight: 900, marginBottom: '50px', textTransform: 'uppercase', whiteSpace: 'pre-line', lineHeight: 1.1 }}>
+      <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexDirection: 'column', width: '100%', maxWidth: '1000px', margin: '0 auto' }}>
+        <motion.h2 variants={titleAnim} className="title-font clamp-h2" style={{ fontWeight: 900, marginBottom: '60px', textTransform: 'uppercase', whiteSpace: 'pre-line' }}>
           {slide.title}
         </motion.h2>
-        <motion.div variants={staggerContainer} style={{ display: 'flex', flexDirection: 'column', gap: '28px', flex: 1, justifyContent: 'center' }}>
+        <motion.div variants={staggerContainer} style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
           {slide.items.map((item, idx) => (
-            <motion.div key={idx} variants={itemAnim} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '16px' }}>
-              <span className="text-gradient-primary title-font" style={{ fontSize: '26px', fontWeight: 800, letterSpacing: '0.02em' }}>{item.title}</span>
-              <span style={{ flex: 1, borderTop: '2px dotted rgba(255,255,255,0.2)', margin: '0 30px', opacity: 0.5 }} />
-              <span style={{ color: '#fff', fontSize: '26px', fontWeight: 600, fontFamily: 'monospace' }}>{item.cost}</span>
+            <motion.div key={idx} variants={itemAnim} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '20px', flexWrap: 'wrap', gap: '20px' }}>
+              <span className="text-gradient-primary title-font clamp-sub" style={{ fontWeight: 800 }}>{item.title}</span>
+              <span style={{ flex: 1, minWidth: '100px', borderTop: '2px dotted rgba(255,255,255,0.2)', opacity: 0.5 }} />
+              <span className="clamp-sub" style={{ color: '#fff', fontWeight: 600, fontFamily: 'monospace' }}>{item.cost}</span>
             </motion.div>
           ))}
         </motion.div>
-        <motion.div variants={itemAnim} style={{ display: 'flex', alignItems: 'center', gap: '30px', marginTop: '50px' }}>
-          <div style={{ background: 'linear-gradient(135deg, var(--primary), #D43F00)', padding: '20px 48px', borderRadius: '16px', fontSize: '48px', fontWeight: 900, boxShadow: '0 20px 40px rgba(255,90,0,0.3)' }}>
+        <motion.div variants={itemAnim} style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '40px', marginTop: '60px' }}>
+          <div className="pill-primary title-font clamp-h2-large" style={{ fontWeight: 900, padding: '20px 60px' }}>
             {slide.total}
           </div>
-          <span style={{ fontSize: '26px', color: 'var(--text-muted)', fontWeight: 500 }}>{slide.subTotal}</span>
+          <span className="clamp-sub" style={{ color: 'var(--text-muted)', fontWeight: 500 }}>{slide.subTotal}</span>
         </motion.div>
       </motion.div>
     );
@@ -227,13 +226,13 @@ function SlideSection({ slide, isHero }) {
 
   if (slide.type === 'team') {
     return (
-      <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-        <motion.h2 variants={titleAnim} className="title-font" style={{ fontSize: '64px', fontWeight: 900, marginBottom: '80px', textTransform: 'uppercase', textAlign: 'center', letterSpacing: '-0.02em' }}>
+      <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+        <motion.h2 variants={titleAnim} className="title-font clamp-h2-large" style={{ fontWeight: 900, marginBottom: '80px', textTransform: 'uppercase', textAlign: 'center' }}>
           {slide.title}
         </motion.h2>
-        <motion.div variants={staggerContainer} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '24px', maxWidth: '1000px' }}>
+        <motion.div variants={staggerContainer} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '30px', maxWidth: '1000px' }}>
           {slide.roles.map((role, idx) => (
-            <motion.div key={idx} variants={itemAnim} className="card-glass title-font" style={{ padding: '30px 60px', borderRadius: '20px', fontSize: '28px', fontWeight: 900, color: '#fff', letterSpacing: '0.05em' }}>
+            <motion.div key={idx} variants={itemAnim} className="card-glass title-font clamp-sub" style={{ padding: '30px 60px', borderRadius: '100px', fontWeight: 900, color: '#fff' }}>
               {role}
             </motion.div>
           ))}
@@ -244,11 +243,11 @@ function SlideSection({ slide, isHero }) {
 
   if (slide.type === 'price') {
     return (
-      <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%', gap: '60px' }}>
-        <motion.h2 variants={titleAnim} className="text-gradient title-font" style={{ fontSize: '80px', fontWeight: 900, letterSpacing: '-0.03em' }}>{slide.label}</motion.h2>
-        <motion.div variants={itemAnim} style={{ background: 'rgba(30, 30, 35, 0.8)', backdropFilter: 'blur(30px)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '32px', overflow: 'hidden', minWidth: '450px', boxShadow: '0 40px 80px rgba(0,0,0,0.6)' }}>
-          <div style={{ background: 'linear-gradient(90deg, var(--primary), #D43F00)', padding: '24px', textAlign: 'center', fontSize: '36px', fontWeight: 900, letterSpacing: '0.1em', textTransform: 'uppercase' }}>{slide.package}</div>
-          <div className="title-font" style={{ padding: '80px 40px', textAlign: 'center', fontSize: '80px', fontWeight: 900, color: '#fff' }}>{slide.price}</div>
+      <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', width: '100%', gap: '80px' }}>
+        <motion.h2 variants={titleAnim} className="text-gradient title-font clamp-h1" style={{ fontWeight: 900, textAlign: 'center' }}>{slide.label}</motion.h2>
+        <motion.div variants={itemAnim} style={{ background: 'rgba(30, 30, 35, 0.8)', backdropFilter: 'blur(30px)', border: '1px solid rgba(255,255,255,0.15)', borderRadius: '40px', overflow: 'hidden', minWidth: 'min(100%, 500px)', boxShadow: '0 40px 100px rgba(0,0,0,0.8)' }}>
+          <div className="clamp-sub" style={{ background: 'linear-gradient(90deg, var(--primary), #D43F00)', padding: '30px', textAlign: 'center', fontWeight: 900, letterSpacing: '0.1em', textTransform: 'uppercase' }}>{slide.package}</div>
+          <div className="title-font clamp-h1" style={{ padding: '100px 40px', textAlign: 'center', fontWeight: 900, color: '#fff' }}>{slide.price}</div>
         </motion.div>
       </motion.div>
     );
@@ -256,15 +255,15 @@ function SlideSection({ slide, isHero }) {
 
   if (slide.type === 'price-special') {
     return (
-      <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%', gap: '70px' }}>
-        <motion.div variants={titleAnim} style={{ display: 'flex', flexDirection: 'column' }}>
-          <h2 className="title-font text-gradient-primary" style={{ fontSize: '64px', fontWeight: 900, whiteSpace: 'pre-line', lineHeight: 1.05, marginBottom: '24px' }}>{slide.label}</h2>
-          <h3 style={{ fontSize: '32px', fontWeight: 600, color: '#E0E0EA', letterSpacing: '0.02em' }}>{slide.subLabel}</h3>
+      <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', width: '100%', gap: '80px' }}>
+        <motion.div variants={titleAnim} style={{ display: 'flex', flexDirection: 'column', textAlign: 'center' }}>
+          <h2 className="title-font text-gradient-primary clamp-h1" style={{ fontWeight: 900, whiteSpace: 'pre-line', marginBottom: '30px' }}>{slide.label}</h2>
+          <h3 className="clamp-sub" style={{ fontWeight: 600, color: '#E0E0EA', letterSpacing: '0.02em', background: 'rgba(255,255,255,0.1)', padding: '15px 40px', borderRadius: '100px', display: 'inline-block', margin: '0 auto' }}>{slide.subLabel}</h3>
         </motion.div>
         
-        <motion.div variants={itemAnim} style={{ background: 'linear-gradient(135deg, #FFFFFF, #F0F0F0)', borderRadius: '32px', overflow: 'hidden', minWidth: '450px', boxShadow: '0 40px 100px rgba(255,90,0,0.6)' }}>
-          <div style={{ background: 'linear-gradient(90deg, var(--primary), #FF2A00)', padding: '24px', textAlign: 'center', fontSize: '36px', fontWeight: 900, color: '#fff', letterSpacing: '0.1em' }}>{slide.package}</div>
-          <div className="title-font" style={{ padding: '80px 40px', textAlign: 'center', fontSize: '80px', fontWeight: 900, color: '#D40000' }}>{slide.price}</div>
+        <motion.div variants={itemAnim} style={{ background: 'linear-gradient(135deg, #FFFFFF, #F0F0F0)', borderRadius: '40px', overflow: 'hidden', minWidth: 'min(100%, 500px)', boxShadow: '0 40px 100px rgba(255,90,0,0.6)' }}>
+          <div className="clamp-sub" style={{ background: 'linear-gradient(90deg, var(--primary), #FF2A00)', padding: '30px', textAlign: 'center', fontWeight: 900, color: '#fff', letterSpacing: '0.1em' }}>{slide.package}</div>
+          <div className="title-font clamp-h1" style={{ padding: '100px 40px', textAlign: 'center', fontWeight: 900, color: '#D40000' }}>{slide.price}</div>
         </motion.div>
       </motion.div>
     );
@@ -272,17 +271,18 @@ function SlideSection({ slide, isHero }) {
 
   if (slide.type === 'bonuses') {
     return (
-      <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-        <motion.h2 variants={titleAnim} className="title-font" style={{ fontSize: '48px', fontWeight: 900, marginBottom: '16px', textTransform: 'uppercase' }}>{slide.title}</motion.h2>
-        <motion.div variants={itemAnim} style={{ background: 'linear-gradient(135deg, var(--primary), #D43F00)', padding: '20px 60px', borderRadius: '100px', marginBottom: '80px' }}>
-          <h2 className="title-font" style={{ fontSize: '48px', fontWeight: 900, margin: 0, color: '#fff', textTransform: 'uppercase' }}>{slide.highlight}</h2>
+      <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+        <motion.h2 variants={titleAnim} className="title-font clamp-h2" style={{ fontWeight: 900, marginBottom: '24px', textTransform: 'uppercase', textAlign: 'center' }}>{slide.title}</motion.h2>
+        <motion.div variants={itemAnim} className="pill-primary" style={{ marginBottom: '100px' }}>
+          <h2 className="title-font clamp-h2" style={{ fontWeight: 900, margin: 0, color: '#fff', textTransform: 'uppercase' }}>{slide.highlight}</h2>
         </motion.div>
-        <motion.div variants={staggerContainer} className="card-glass" style={{ padding: '50px', display: 'flex', flexWrap: 'wrap', gap: '40px', position: 'relative', width: '100%', borderRadius: '32px' }}>
-          <div style={{ position: 'absolute', top: '-30px', left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(90deg, var(--primary), #FF8340)', padding: '12px 50px', borderRadius: '30px', fontSize: '28px', fontWeight: 900 }}>БОНУСИ</div>
+        
+        <motion.div variants={staggerContainer} className="card-glass" style={{ padding: '80px 50px', display: 'flex', flexWrap: 'wrap', gap: '60px', position: 'relative', width: '100%', borderRadius: '40px' }}>
+          <div className="clamp-sub" style={{ position: 'absolute', top: '-30px', left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(90deg, var(--primary), #FF8340)', padding: '20px 60px', borderRadius: '100px', fontWeight: 900 }}>БОНУСИ</div>
           {slide.items.map((item, idx) => (
-            <motion.div key={idx} variants={itemAnim} style={{ flex: '1 1 300px', display: 'flex', alignItems: 'center', gap: '24px' }}>
-              <div className="title-font text-gradient-primary" style={{ fontSize: '100px', fontWeight: 900, opacity: 0.3, lineHeight: 0.8 }}>{item.num}</div>
-              <div style={{ fontSize: '26px', fontWeight: 600, lineHeight: 1.3, color: '#F8F9FA' }}>{item.text}</div>
+            <motion.div key={idx} variants={itemAnim} style={{ flex: '1 1 300px', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '20px' }}>
+              <div className="title-font text-gradient-primary clamp-h1" style={{ fontWeight: 900, opacity: 0.3, lineHeight: 0.8 }}>{item.num}</div>
+              <div className="clamp-sub" style={{ fontWeight: 600, lineHeight: 1.4, color: '#F8F9FA' }}>{item.text}</div>
             </motion.div>
           ))}
         </motion.div>
@@ -292,15 +292,15 @@ function SlideSection({ slide, isHero }) {
 
   if (slide.type === 'payment-plan') {
     return (
-      <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%', textAlign: 'center' }}>
-        <motion.h2 variants={titleAnim} className="title-font" style={{ fontSize: '64px', fontWeight: 900, marginBottom: '24px', textTransform: 'uppercase', letterSpacing: '-0.02em' }}>{slide.title}</motion.h2>
-        <motion.div variants={itemAnim} style={{ background: 'linear-gradient(135deg, var(--primary), #D43F00)', padding: '24px 64px', borderRadius: '100px', marginBottom: '80px' }}>
-          <h2 className="title-font" style={{ fontSize: '64px', fontWeight: 900, margin: 0, color: '#fff', textTransform: 'uppercase' }}>{slide.highlight}</h2>
+      <motion.div initial="hidden" whileInView="show" viewport={viewConfig} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', width: '100%', textAlign: 'center' }}>
+        <motion.h2 variants={titleAnim} className="title-font clamp-h2" style={{ fontWeight: 900, marginBottom: '40px', textTransform: 'uppercase' }}>{slide.title}</motion.h2>
+        <motion.div variants={itemAnim} className="pill-primary" style={{ marginBottom: '100px' }}>
+          <h2 className="title-font clamp-h2-large" style={{ fontWeight: 900, margin: 0, color: '#fff', textTransform: 'uppercase' }}>{slide.highlight}</h2>
         </motion.div>
-        <motion.div variants={itemAnim} style={{ background: 'linear-gradient(135deg, rgba(20,20,20,0.8), rgba(10,10,10,0.9))', border: '1px solid rgba(255,90,0,0.3)', padding: '50px 100px', borderRadius: '32px', boxShadow: '0 40px 100px rgba(0,0,0,0.8), inset 0 0 40px rgba(255,90,0,0.1)' }}>
-          <h3 className="text-gradient-primary title-font" style={{ fontSize: '48px', fontWeight: 900, whiteSpace: 'pre-line', margin: 0, lineHeight: 1.2 }}>{slide.boxText}</h3>
+        <motion.div variants={itemAnim} style={{ background: 'linear-gradient(135deg, rgba(20,20,20,0.8), rgba(10,10,10,0.9))', border: '1px solid rgba(255,90,0,0.3)', padding: '60px clamp(40px, 8vw, 120px)', borderRadius: '40px', boxShadow: '0 40px 100px rgba(0,0,0,0.8), inset 0 0 40px rgba(255,90,0,0.1)' }}>
+          <h3 className="text-gradient-primary title-font clamp-h2" style={{ fontWeight: 900, whiteSpace: 'pre-line', margin: 0 }}>{slide.boxText}</h3>
         </motion.div>
-        <motion.div variants={itemAnim} style={{ marginTop: '50px', fontSize: '32px', fontWeight: 700, letterSpacing: '0.1em', color: '#888' }}>
+        <motion.div variants={itemAnim} className="clamp-sub" style={{ marginTop: '60px', fontWeight: 700, letterSpacing: '0.1em', color: '#888' }}>
           {slide.footerText}
         </motion.div>
       </motion.div>
