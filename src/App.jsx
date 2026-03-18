@@ -347,7 +347,13 @@ function SlideSection({ slide }) {
           
           <div style={{ padding: 'clamp(40px, 6vw, 70px) clamp(30px, 5vw, 60px)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <span className="title-font clamp-h2" style={{ color: 'rgba(255,255,255,0.3)', textDecoration: 'line-through', fontWeight: 700, marginBottom: '4px' }}>250€</span>
-            <span className="title-font text-gradient-primary clamp-h1" style={{ fontWeight: 900, lineHeight: 1, fontSize: 'clamp(4rem, 10vw, 6.5rem)', textShadow: '0 0 60px rgba(255, 90, 0, 0.8)' }}>{slide.price}</span>
+            <span className="title-font" style={{ 
+              fontWeight: 900, lineHeight: 1, fontSize: 'clamp(4rem, 10vw, 6.5rem)', 
+              color: '#FFF5F0', 
+              textShadow: '0 2px 10px rgba(255, 90, 0, 0.9), 0 0 40px rgba(255, 90, 0, 0.6), 0 0 80px rgba(255, 20, 0, 0.4)' 
+            }}>
+              {slide.price}
+            </span>
             <span className="clamp-p" style={{ color: '#FFD2BC', marginTop: '16px', fontWeight: 600, letterSpacing: '0.05em' }}>за місяць роботи команди</span>
           </div>
         </motion.div>
