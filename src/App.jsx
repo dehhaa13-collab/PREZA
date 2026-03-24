@@ -50,7 +50,7 @@ const slides = [
   },
   { id: 11, type: 'team', title: 'З ВАМИ БУДЕ ПРАЦЮВАТИ КОМАНДА:', roles: [ 'ПРОДЮСЕР', 'СЦЕНАРИСТ', 'МОНТАЖЕР', 'ДИЗАЙНЕР', 'ТАРГЕТОЛОГ' ] },
   { id: 12, type: 'title', title: 'СКІЛЬКИ КОШТУЮТЬ', highlight: 'НАШІ ПОСЛУГИ?' },
-  { id: 13, type: 'price', label: 'ЦІНА:', package: 'STANDART', price: '250€' },
+  // { id: 13, type: 'price', label: 'ЦІНА:', package: 'STANDART', price: '250€' },
   { id: 14, type: 'price-special', label: 'СПЕЦІАЛЬНА\nПРОПОЗИЦІЯ', subLabel: 'ДО КІНЦЯ ДІАГНОСТИКИ', package: 'STANDART', price: '169€' },
   { id: 15, type: 'bonuses', title: 'БОНУСИ ПРИ ПОВНІЙ ОПЛАТІ', highlight: 'ДО КІНЦЯ ДІАГНОСТИКИ', items: [
       { num: '01', text: 'Урок по веденню сторіс' }, { num: '02', text: 'Урок по налаштуванню реклами' }, { num: '03', text: 'Безкоштовний місяць у Bless Community' }
