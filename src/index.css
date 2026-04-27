@@ -16,7 +16,9 @@
   box-sizing: border-box;
 }
 
-body, html, #root {
+body,
+html,
+#root {
   width: 100%;
   margin: 0;
   padding: 0;
@@ -97,7 +99,7 @@ body::before {
   border: 1px solid var(--border-subtle);
   border-radius: 20px;
   transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, border-color 0.4s ease;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
 @media (hover: hover) {
@@ -105,8 +107,16 @@ body::before {
     background: rgba(255, 255, 255, 0.05);
     border-color: rgba(255, 90, 0, 0.3);
     transform: translateY(-4px);
-    box-shadow: 0 16px 40px rgba(0,0,0,0.4), 0 0 20px rgba(255,90,0,0.08);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(255, 90, 0, 0.08);
   }
+}
+
+/* Card numbers — sized to never break in grid cells */
+.card-num {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  display: block;
 }
 
 /* Responsive Grids */
@@ -115,16 +125,19 @@ body::before {
   grid-template-columns: repeat(5, 1fr);
   gap: 20px;
 }
+
 .grid-4-cols {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
+
 .grid-2-cols {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
+
 .grid-3-cols {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -132,29 +145,83 @@ body::before {
 }
 
 @media (max-width: 1200px) {
-  .grid-5-cols { grid-template-columns: repeat(3, 1fr); }
+  .grid-5-cols {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
+
 @media (max-width: 1000px) {
-  .grid-4-cols { grid-template-columns: repeat(2, 1fr); }
+  .grid-4-cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
+
 @media (max-width: 768px) {
-  .grid-5-cols { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  .grid-4-cols { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  .grid-3-cols { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  .grid-2-cols { grid-template-columns: 1fr; gap: 16px; }
+  .grid-5-cols {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .grid-4-cols {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .grid-3-cols {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  .grid-2-cols {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }
+
 @media (max-width: 480px) {
-  .grid-5-cols { grid-template-columns: 1fr; gap: 12px; }
-  .grid-4-cols { grid-template-columns: 1fr; gap: 12px; }
-  .grid-3-cols { grid-template-columns: 1fr; gap: 12px; }
+  .grid-5-cols {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .grid-4-cols {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .grid-3-cols {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
 }
 
 /* Responsive Typography with clamp() — always readable */
-.clamp-h1 { font-size: clamp(1.8rem, 8vw, 6rem); line-height: 1.1; letter-spacing: -0.02em; }
-.clamp-h2 { font-size: clamp(1.2rem, 4.5vw, 3.5rem); line-height: 1.2; }
-.clamp-h2-large { font-size: clamp(1.5rem, 6vw, 4.5rem); line-height: 1.1; letter-spacing: -0.02em; }
-.clamp-sub { font-size: clamp(0.85rem, 2vw, 1.5rem); line-height: 1.4; }
-.clamp-p { font-size: clamp(0.9rem, 1.5vw, 1.15rem); line-height: 1.5; }
+.clamp-h1 {
+  font-size: clamp(1.8rem, 8vw, 6rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.clamp-h2 {
+  font-size: clamp(1.2rem, 4.5vw, 3.5rem);
+  line-height: 1.2;
+}
+
+.clamp-h2-large {
+  font-size: clamp(1.5rem, 6vw, 4.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.clamp-sub {
+  font-size: clamp(0.85rem, 2vw, 1.5rem);
+  line-height: 1.4;
+}
+
+.clamp-p {
+  font-size: clamp(0.9rem, 1.5vw, 1.15rem);
+  line-height: 1.5;
+}
 
 /* Pill Buttons */
 .pill-primary {
@@ -178,7 +245,7 @@ body::before {
   border-radius: 32px;
   overflow: hidden;
   width: min(100%, 480px);
-  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
 }
 
 /* Mobile-specific adjustments */
@@ -186,20 +253,26 @@ body::before {
   .glow-orb {
     filter: blur(80px);
   }
+
   body::before {
     opacity: 0.08;
   }
+
   .section-padding {
     padding: 40px 16px !important;
   }
-  .pill-primary, .pill-danger {
+
+  .pill-primary,
+  .pill-danger {
     padding: 12px 20px;
     box-shadow: 0 8px 20px rgba(255, 90, 0, 0.25);
   }
+
   .price-card {
     width: min(100%, 340px);
     border-radius: 24px;
   }
+
   .card-glass {
     border-radius: 16px;
   }
@@ -209,9 +282,12 @@ body::before {
   .section-padding {
     padding: 32px 12px !important;
   }
-  .pill-primary, .pill-danger {
+
+  .pill-primary,
+  .pill-danger {
     padding: 10px 16px;
   }
+
   .price-card {
     width: 100%;
     border-radius: 20px;
@@ -219,8 +295,14 @@ body::before {
 }
 
 @media (max-width: 360px) {
-  .clamp-h1 { font-size: 1.6rem; }
-  .clamp-h2-large { font-size: 1.3rem; }
+  .clamp-h1 {
+    font-size: 1.6rem;
+  }
+
+  .clamp-h2-large {
+    font-size: 1.3rem;
+  }
+
   .section-padding {
     padding: 24px 10px !important;
   }

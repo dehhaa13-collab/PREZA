@@ -6,7 +6,7 @@ import NotFound from './NotFound.jsx'
 
 // Basic URL path check. Allow '/', '/index.html', and '/PREZA/' for GH Pages
 const path = window.location.pathname;
-const isHome = path === '/' || path === '/index.html' || path.startsWith('/PREZA') || path.endsWith('/');
+const isHome = path === '/' || path === '/index.html' || path === '/PREZA' || path === '/PREZA/';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
